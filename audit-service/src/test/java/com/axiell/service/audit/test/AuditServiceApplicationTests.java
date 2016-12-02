@@ -1,5 +1,6 @@
 package com.axiell.service.audit.test;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,18 +15,26 @@ import com.axiell.service.audit.solr.repo.AuditLogRepository;
 @SpringBootTest
 public class AuditServiceApplicationTests {
 	
+	private static final String [] TOPICS = {"Linear Regression", "Classification", "Logistic Regression", "Bayes Theorem", "Cross Validation"};
+	
 	@Autowired
 	private AuditLogRepository auditLogRepository;
 
 	@Test
 	public void testAuditLogRepository() {
-		AuditLog auditLog = new AuditLog();
-		auditLog.setId("1");
-		auditLog.setUserId("12345");
-		auditLog.setSearchTerm("computer science");
-		AuditLog saved = auditLogRepository.save(auditLog);
-		Assert.assertNotNull("Error in AuditLogRepository Save", saved);
-		auditLogRepository.delete(saved);
+		for (int i = 0; i < TOPICS.length; i++) {
+			AuditLog auditLog = new AuditLog();
+			auditLog.setId(new Long(i+1).toString());
+			auditLog.setUserId("12345");
+			auditLog.setSearchTerm(TOPICS[i]);
+			AuditLog saved = auditLogRepository.save(auditLog);
+			Assert.assertNotNull("Error in AuditLogRepository Save", saved);	
+		}
 	}
+	
+//	@After
+//	public void tearDown() {
+//		auditLogRepository.deleteAll();
+//	}
 
 }
