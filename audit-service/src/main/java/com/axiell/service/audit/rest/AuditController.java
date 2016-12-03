@@ -24,12 +24,12 @@ public class AuditController {
 	private AuditLogRepository auditLogRepository;
 
 	@RequestMapping(value = "/{userId}", method = RequestMethod.GET)
-	public ResponseEntity<?> authUser(@PathVariable String userId) {
+	public ResponseEntity<?> getUserLogs(@PathVariable String userId) {
 		return new ResponseEntity<>(auditLogRepository.findByUserId(userId), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
-	public ResponseEntity<?> authUser(@RequestParam(value = "term") String term,
+	public ResponseEntity<?> searchLogs(@RequestParam(value = "term") String term,
 			@RequestParam(value = "page") Integer page, @RequestParam(value = "size") Integer size) {
 		return new ResponseEntity<>(auditLogRepository.findByCustomQuery(term, new PageRequest(page, size)),
 				HttpStatus.OK);
