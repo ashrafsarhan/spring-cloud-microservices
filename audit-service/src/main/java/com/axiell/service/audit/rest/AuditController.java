@@ -30,7 +30,8 @@ public class AuditController {
 
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public ResponseEntity<?> searchLogs(@RequestParam(value = "term") String term,
-			@RequestParam(value = "page") Integer page, @RequestParam(value = "size") Integer size) {
+			@RequestParam(value = "page", defaultValue = "0") Integer page,
+			@RequestParam(value = "size", defaultValue = "10") Integer size) {
 		return new ResponseEntity<>(auditLogRepository.findByCustomQuery(term, new PageRequest(page, size)),
 				HttpStatus.OK);
 	}
