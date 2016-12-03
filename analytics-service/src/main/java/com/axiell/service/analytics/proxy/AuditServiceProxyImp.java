@@ -31,8 +31,8 @@ public class AuditServiceProxyImp implements AuditServiceProxyApi {
 	@Value("${audit.service.name}")
 	private String auditServiceName;
 
-	@Value("${audit.service.url}")
-	private String auditServiceUrl;
+	@Value("${audit.service.path}")
+	private String auditServicePath;
 
 	@Override
 	public HotTopic[] getHotSearchedTopics() {
@@ -40,7 +40,7 @@ public class AuditServiceProxyImp implements AuditServiceProxyApi {
 		List<ServiceInstance> instances = discoveryClient.getInstances(auditServiceName);
         if(instances != null && !instances.isEmpty()) {
             ServiceInstance serviceInstance = instances.get(0);
-            String serviceUrl = String.format("http://%s:%d", serviceInstance.getHost(), serviceInstance.getPort());
+            String serviceUrl = serviceInstance.getUri()+auditServicePath;
             hotTopics = restTemplate.getForObject(serviceUrl, HotTopic[].class);
         }else {
         	logger.error("Fetal error: No available instances for audit service!");
