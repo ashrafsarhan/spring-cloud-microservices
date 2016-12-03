@@ -36,4 +36,11 @@ public class AuditController {
 				HttpStatus.OK);
 	}
 
+	@RequestMapping(value = "/topics/top", method = RequestMethod.GET)
+	public ResponseEntity<?> searchLogs(@RequestParam(value = "page", defaultValue = "0") Integer page,
+			@RequestParam(value = "size", defaultValue = "10") Integer size) {
+		return new ResponseEntity<>(auditLogRepository.findTopSearchedTopics(new PageRequest(page, size)),
+				HttpStatus.OK);
+	}
+
 }

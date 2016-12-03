@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.solr.core.query.result.FacetPage;
+import org.springframework.data.solr.repository.Facet;
 import org.springframework.data.solr.repository.Query;
 import org.springframework.data.solr.repository.SolrCrudRepository;
 
@@ -22,5 +24,9 @@ public interface AuditLogRepository extends SolrCrudRepository<AuditLog, String>
 
 	@Query(name = "auditLog.findByNamedQuery")
 	public Page<AuditLog> findByNamedQuery(String searchTerm, Pageable pageable);
+	
+	@Facet(fields={"searchTerm"})
+    @Query("*:*")
+    public FacetPage<AuditLog> findTopSearchedTopics(Pageable page);
 
 }
