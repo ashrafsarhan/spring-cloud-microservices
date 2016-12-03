@@ -32,9 +32,9 @@ public class AuditServiceApplicationTests {
 		}
 	}
 	
-//	@After
-//	public void tearDown() {
-//		auditLogRepository.deleteAll();
-//	}
+	@After
+	public void tearDown() {
+		auditLogRepository.deleteAll();
+	}
 
 }
