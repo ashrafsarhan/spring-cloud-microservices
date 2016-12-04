@@ -20,6 +20,16 @@ public class AuditLog {
 
 	@Indexed(name = "searchTerm", type = "string")
 	private String searchTerm;
+	
+	public AuditLog() {
+	}
+
+	public AuditLog(String id, String userId, String searchTerm) {
+		super();
+		this.id = id;
+		this.userId = userId;
+		this.searchTerm = searchTerm;
+	}
 
 	public String getId() {
 		return id;

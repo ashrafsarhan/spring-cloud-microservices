@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.axiell.service.audit.dto.Topic;
+import com.axiell.service.audit.solr.doc.AuditLog;
 import com.axiell.service.audit.solr.repo.AuditLogRepository;
 
 /**
@@ -30,6 +31,13 @@ public class AuditController {
 	@RequestMapping(value = "/user/{userId}", method = RequestMethod.GET)
 	public ResponseEntity<?> getUserLogs(@PathVariable String userId) {
 		return new ResponseEntity<>(auditLogRepository.findByUserId(userId), HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/log", method = RequestMethod.POST)
+	public ResponseEntity<?> saveLog(@RequestParam(value = "userId") String userId,
+			@RequestParam(value = "searchTerm") String searchTerm) {
+		AuditLog auditLog = new AuditLog(new String(userId+System.currentTimeMillis()), userId, searchTerm);
+		return new ResponseEntity<>(auditLogRepository.save(auditLog), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/topic/search", method = RequestMethod.GET)
