@@ -33,7 +33,7 @@ public class AuditController {
 		return new ResponseEntity<>(auditLogRepository.findByUserId(userId), HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/log", method = RequestMethod.POST)
+	@RequestMapping(value = "/log", method = RequestMethod.GET)
 	public ResponseEntity<?> saveLog(@RequestParam(value = "userId") String userId,
 			@RequestParam(value = "searchTerm") String searchTerm) {
 		AuditLog auditLog = new AuditLog(new String(userId+System.currentTimeMillis()), userId, searchTerm);
