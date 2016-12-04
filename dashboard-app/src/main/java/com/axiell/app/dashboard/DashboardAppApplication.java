@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Import;
 @EnableAutoConfiguration
 @EnableEurekaClient
 @SpringBootApplication
-@Import(RestConfig.class)
+@Import({RestConfig.class, WebSocketConfig.class})
 public class DashboardAppApplication {
 
 	public static void main(String[] args) {
